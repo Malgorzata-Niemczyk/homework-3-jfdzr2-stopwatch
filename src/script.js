@@ -74,10 +74,13 @@ function resetTimer() {
 }
 
 function displayNextResult() {
+    if (timerState !== false) {
         let liItem = document.createElement('li');
         liItem.setAttribute('class', 'next-result-item');
-        liItem.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
         nextResultDisplay.appendChild(liItem);
+        
+        liItem.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+    }
 };
 
 
