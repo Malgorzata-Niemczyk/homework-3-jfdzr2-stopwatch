@@ -12,14 +12,14 @@ const nextResultDisplay = document.getElementById('next-result-display');
 let min = 0;
 let sec = 0;
 let milisec = 0;
-let timerState; // to store the timer values
+let timerState = false;
 
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
 
 // Starting the timer
 function startTimer() {
-    if (!timerState) {
+    if (timerState === false) {
         timerState = setInterval(formatTimer, 10);
         stopBtn.style.display = 'block'
         saveBtn.style.display = 'none';
@@ -38,8 +38,7 @@ function formatTimer() {
         sec = 0;
         min++;
     };
-
-    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec); // add zeros if less than 10 and add the timer numbers to the HTML
 };
 
 function stopTimer() {
@@ -52,13 +51,19 @@ function stopTimer() {
 
 
 function pauseTimer() {
-    clearInterval(timerState);
-    timerState = false;
+    if (timerState === false) /*clicked to continue running the timer*/ {
+        timerState = setInterval(formatTimer, 10);
+        stopBtn.style.display = 'block'
+    } else /*clicked to pause the timer*/{
+        clearInterval(timerState);
+        timerState = false;
+        saveBtn.style.display = 'block';
+    }; 
 };
 
 function resetTimer() {
     clearInterval(timerState);
-    timerState = false
+    timerState = false;
     min = 0;
     sec = 0;
     milisec = 0;
@@ -69,11 +74,11 @@ function resetTimer() {
 }
 
 function displayNextResult() {
-    let liItem = document.createElement('li');
-    liItem.setAttribute('class', 'next-result-item');
-    liItem.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
-    nextResultDisplay.appendChild(liItem);
-}
+        let liItem = document.createElement('li');
+        liItem.setAttribute('class', 'next-result-item');
+        liItem.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+        nextResultDisplay.appendChild(liItem);
+};
 
 
 startBtn.addEventListener('click', startTimer);
