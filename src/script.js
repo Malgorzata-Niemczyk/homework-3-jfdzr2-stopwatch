@@ -15,12 +15,14 @@ let milisec = 0;
 let timerState; // to store the timer values
 
 stopBtn.style.display = 'none';
+saveBtn.style.display = 'none';
 
 // Starting the timer
 function startTimer() {
     if (!timerState) {
         timerState = setInterval(formatTimer, 10);
         stopBtn.style.display = 'block'
+        saveBtn.style.display = 'none';
     }            
 };
 
@@ -44,7 +46,8 @@ function stopTimer() {
     clearInterval(timerState);
     timerState = false;
 
-    stopBtn.style.display = 'none'
+    stopBtn.style.display = 'none';
+    saveBtn.style.display = 'block';
 };
 
 
