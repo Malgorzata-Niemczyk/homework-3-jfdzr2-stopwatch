@@ -17,12 +17,10 @@ let timerState; // to store the timer values
 function startTimer() {
     if (!timerState) {
         timerState = setInterval(formatTimer, 10);
-    }
-        
+    }       
 };
 
-function formatTimer() {
-    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+function formatTimer() { 
     milisec++
     
     if (milisec === 99) {
@@ -34,12 +32,24 @@ function formatTimer() {
         sec = 0;
         min++;
     };
+
+    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
 };
 
 function stopTimer() {
     clearInterval(timerState);
-    timerState = false;
+    //timerState = false;
 };
+
+function resetTimer() {
+    clearInterval(timerState);
+    timerState = false
+    min = 0;
+    sec = 0;
+    milisec = 0;
+    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+}
+
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
