@@ -84,17 +84,19 @@ function displayNextResult() {
 };
 
 function saveTimerResults() {
-    let timerResultsArr = [];
+    if (timerState === false) { // saving the results only when the timer is not running
+        let timerResultsArr = [];
 
-    timerResultsArr.push(timerDisplay.innerText);
-    localStorage.setItem('timerResults', JSON.stringify(timerResultsArr));
-
-    // clearing the timer display and the other timer results upon clicking the save button
-    min = 0;
-    sec = 0;
-    milisec = 0;
-    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
-    nextResultDisplay.innerHTML = '';
+        timerResultsArr.push(timerDisplay.innerText);
+        localStorage.setItem('timerResults', JSON.stringify(timerResultsArr));
+    
+        // clearing the timer display and the other timer results upon clicking the save button
+        min = 0;
+        sec = 0;
+        milisec = 0;
+        timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+        nextResultDisplay.innerHTML = '';
+    }; 
 };
 
 
