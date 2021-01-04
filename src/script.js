@@ -54,10 +54,11 @@ function pauseTimer() {
     if (timerState === false) /*clicked to continue running the timer*/ {
         timerState = setInterval(formatTimer, 10);
         stopBtn.style.display = 'block'
+        saveBtn.style.display = 'none';
     } else /*clicked to pause the timer*/{
         clearInterval(timerState);
         timerState = false;
-        saveBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
     }; 
 };
 
