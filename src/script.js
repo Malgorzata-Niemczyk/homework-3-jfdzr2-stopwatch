@@ -23,7 +23,8 @@ function startTimer() {
         timerState = setInterval(formatTimer, 10);
         stopBtn.style.display = 'block'
         saveBtn.style.display = 'none';
-    }            
+        startBtn.style.display = 'none';
+    }      
 };
 
 function formatTimer() { 
@@ -47,6 +48,7 @@ function stopTimer() {
 
     stopBtn.style.display = 'none';
     saveBtn.style.display = 'block';
+    startBtn.style.display = 'block';     
 };
 
 
@@ -59,6 +61,7 @@ function pauseTimer() {
         clearInterval(timerState);
         timerState = false;
         saveBtn.style.display = 'none';
+        startBtn.style.display = 'block';  
     }; 
 };
 
