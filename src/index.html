@@ -13,17 +13,22 @@
   </head>
   <body class="bg-purple-300">
 
-    <div class="show-results-board rounded-lg shadow-2xl">
-      <h2 class="show-result-name">Mój wynik</h2>
-      <p class="show-result-time">00:05:46</p>
+    <div class="results-board-area">
+      <!-- <div class="show-results-note rounded-lg shadow-2xl">
+        <div class="show-result-name">
+          <h2>Mój wynik</h2>
+          <p><i class="fas fa-chevron-down"></i></p>
+        </div>
+        <p class="show-result-time">00:05:46</p>
+      </div> -->
     </div>
-    
+   
     <form class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl" id="modal-results">
       <label for="timer-results" class="results-title font-bold font-sans">Nadaj nazwę swojemu wynikowi:</label>
       <input class="results-name" type="text" placeholder="Nadaj nazwę..." required>
       <div>
         <button type="submit" class="modal-submit-btn">SUBMIT</button> 
-        <button class="modal-cancel-btn">CANCEL <i class="far fa-window-close"></i></button>
+        <button class="modal-cancel-btn"><i class="far fa-window-close"></i> CANCEL</button>
       </div>
     </form>
 
