@@ -143,6 +143,27 @@ function getSavedTimerResults() {
     };
 };
 
+function addAccordionFeature() {
+    const resultHeadings = document.querySelectorAll('.show-result-name');
+
+    resultHeadings.forEach(resultHeading => {
+        resultHeading.addEventListener('click', () => {
+    
+            resultHeading.classList.toggle('active');
+    
+            const resultBodyElements = resultHeading.nextElementSibling;
+    
+            if (resultHeading.classList.contains('active')) {
+                resultBodyElements.style.maxHeight = `${resultBodyElements.scrollHeight}px`;
+            } else {
+                resultBodyElements.style.maxHeight = 0;
+            }
+        })
+    });
+};
+
+
+
 function displaySavedTimerResults(event) {
     event.preventDefault();
 
@@ -157,9 +178,13 @@ function displaySavedTimerResults(event) {
             <h2>${inputElement.value}</h2>
             <p><i class="fas fa-chevron-down"></i></p>
         </div>
-        <p class="show-result-time">${getSavedTimerResults()}</p>
-    `
+        <div class="show-result-body">
+            <p class="show-result-text">${getSavedTimerResults()}</p>
+        </div>
+    `;
 
+    addAccordionFeature();
+    
     inputElement.value = '';
     form.style.display = 'none';
     resultWrapper.style.display = 'inline-block';
