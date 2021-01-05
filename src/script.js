@@ -124,6 +124,18 @@ function saveTimerResults() {
     }; 
 };
 
+// getting data from localStorage
+function getSavedTimerResults() {
+    const timerData = JSON.parse(localStorage.getItem('myTimes'));
+
+    // checking if the localStorage with 'myTimes' key exists
+    if (timerData) {
+        return timerData;
+    } else {
+        timerData = [];
+    };
+};
+
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
