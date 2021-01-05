@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body class="bg-purple-300">
+
+    <form class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl" id="modal-results">
+      <label for="timer-results" class="results-title font-bold font-sans">Nadaj nazwę swojemu wynikowi:</label>
+      <input class="results-name" type="text" placeholder="Nadaj nazwę...">
+      <div>
+        <button type="submit" class="modal-submit-btn">SUBMIT</button> 
+        <button class="modal-cancel-btn">CANCEL X</button>
+      </div>
+    </form>
+
     <main
       class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl"
       style="background-color: #3cdfea"
@@ -55,7 +65,11 @@
         <h2 class="text-xl font-bold font-sans text-indigo-600">
           Ostatnie wyniki
         </h2>
-        <ul id="next-result-display"></ul>
+        <ul id="next-result-display">
+          <!-- <li class="next-result-item">00:00:00</li>
+          <li class="next-result-item">00:00:00</li>
+          <li class="next-result-item">00:00:00</li> -->
+        </ul>
       </section>
     </main>
     <script src="./script.js"></script>
