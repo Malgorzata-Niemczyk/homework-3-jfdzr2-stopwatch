@@ -13,9 +13,7 @@ const form = document.querySelector('#modal-results');
 const cancelBtn = document.querySelector('.modal-cancel-btn')
 let inputElement = document.querySelector('.results-name');
 
-let showResultHeading = document.querySelector('.show-result-name');
-let showResultTime = document.querySelector('.show-result-time');
-let resultsBoard = document.querySelector('.show-results-board');
+const resultsBoardArea = document.querySelector('.results-board-area');
 
 let min = 0;
 let sec = 0;
@@ -25,6 +23,8 @@ let timerState = false;
 let timerResults = [
     {times: []}
 ];
+
+let cardID = 0;
 
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
@@ -146,14 +146,23 @@ function getSavedTimerResults() {
 function displaySavedTimerResults(event) {
     event.preventDefault();
 
-    showResultHeading.innerHTML = inputElement.value;
-    // console.log(showResultHeading)
-    showResultTime.innerHTML = getSavedTimerResults();
-    // console.log(showResultTime)
+    cardID++;
+    const resultWrapper = document.createElement('div');
+    resultWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultWrapper.setAttribute('id', cardID);
+    resultsBoardArea.appendChild(resultWrapper);
+
+    resultWrapper.innerHTML = `
+        <div class="show-result-name">
+            <h2>${inputElement.value}</h2>
+            <p><i class="fas fa-chevron-down"></i></p>
+        </div>
+        <p class="show-result-time">${getSavedTimerResults()}</p>
+    `
 
     inputElement.value = '';
     form.style.display = 'none';
-    resultsBoard.style.display = 'inline-block';
+    resultWrapper.style.display = 'inline-block';
 };
 
 function hideForm() {
