@@ -142,7 +142,18 @@ function getSavedTimerResults() {
     };
 };
 
+function displaySavedTimerResults(event) {
+    event.preventDefault();
 
+    showResultHeading.innerHTML = inputElement.value;
+    // console.log(showResultHeading)
+    showResultTime.innerHTML = getSavedTimerResults();
+    // console.log(showResultTime)
+
+    inputElement.value = '';
+    form.style.display = 'none';
+    resultsBoard.style.display = 'inline-block';
+};
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
@@ -150,3 +161,4 @@ resetBtn.addEventListener('click', resetTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 nextBtn.addEventListener('click', displayNextResult);
 saveBtn.addEventListener('click', saveTimerResults);
+form.addEventListener('submit', displaySavedTimerResults);
