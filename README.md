@@ -1,5 +1,7 @@
 # Praca domowa - 3
 
+[Link do stopera z dodanymi funkcjonalnościami przeze mnie](https://malgorzata-niemczyk.github.io/jfdzr2-homework-3/src/index.html)
+
 Z powodu panującej pandemii pozamykane zostały siłownie i strasznie mi do nich tęskno.
 
 Na tyle, że potrzebuję od Ciebie aplikacji, która ma działać jak Stoper :)
