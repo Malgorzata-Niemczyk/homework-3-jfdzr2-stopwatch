@@ -94,15 +94,22 @@ function displayNextResult() {
         liItem.textContent = timerResults.map((timerResult) => {
             return `${timerResult.times}`
         }).join('');
-    }
+    };
 };
 
 function saveTimerResults() {
     if (timerState === false) { // saving the results only when the timer is not running
         let timerResultsArr = [];
 
-        timerResultsArr.push(timerDisplay.innerText);
-        localStorage.setItem('timerResults', JSON.stringify(timerResultsArr));
+        timerResults = [
+            {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]},
+        ];  
+
+        // saving data to localStorage
+        timerResultsArr.push(timerResults.map((timerResult) => {
+            return `${timerResult.times}`
+        }).join(''));
+        localStorage.setItem('myTimes', JSON.stringify(timerResultsArr));
     
         // clearing the timer display and the other timer results upon clicking the save button
         min = 0;
