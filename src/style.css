@@ -5,3 +5,41 @@
     font-size: 18px;
     color: rgb(102, 102, 100);
 }
+
+#modal-results {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 25px;
+    width: 400px;
+    height: 200px;
+    background-color: orange;
+    display: none;
+}
+
+.results-title {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.results-name {
+    padding: 5px;
+}
+
+.modal-submit-btn, .modal-cancel-btn {
+    margin-top: 20px;
+    font-weight: bold;
+    background-color: rgb(211, 209, 207);
+    padding: 5px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.modal-submit-btn {
+    margin-right: 10px;
+}
+
+.modal-cancel-btn {
+    margin-left: 10px;
+}
