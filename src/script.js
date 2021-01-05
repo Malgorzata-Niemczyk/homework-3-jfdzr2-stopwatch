@@ -10,6 +10,7 @@ const timerDisplay = document.querySelector('#timer-display');
 const nextResultDisplay = document.getElementById('next-result-display');
 
 const form = document.querySelector('#modal-results');
+const cancelBtn = document.querySelector('.modal-cancel-btn')
 let inputElement = document.querySelector('.results-name');
 
 let showResultHeading = document.querySelector('.show-result-name');
@@ -155,6 +156,10 @@ function displaySavedTimerResults(event) {
     resultsBoard.style.display = 'inline-block';
 };
 
+function hideForm() {
+    form.style.display = 'none'
+};
+
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
@@ -162,3 +167,4 @@ pauseBtn.addEventListener('click', pauseTimer);
 nextBtn.addEventListener('click', displayNextResult);
 saveBtn.addEventListener('click', saveTimerResults);
 form.addEventListener('submit', displaySavedTimerResults);
+cancelBtn.addEventListener('click', hideForm);
