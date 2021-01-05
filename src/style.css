@@ -43,3 +43,31 @@
 .modal-cancel-btn {
     margin-left: 10px;
 }
+
+.show-results-board {
+    margin: 25px;
+    width: 200px;
+    height: 100px;
+    background-color: tomato;
+    display: none;
+}
+
+.show-result-name {
+    padding-top: 8px;
+    height: 45px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    border-image: linear-gradient(to right, transparent, #090a0a, transparent) 1;
+}
+
+.show-result-time {
+    height: 55px;
+    padding-top: 13px;
+    text-align: center;
+    font-size: 20px;
+    background-color: rgb(247, 220, 220);
+    border-bottom-left-radius: 5px;  
+    border-bottom-right-radius: 5px; 
+}
