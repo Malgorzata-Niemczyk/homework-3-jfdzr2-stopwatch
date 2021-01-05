@@ -8,7 +8,13 @@ const saveBtn = document.querySelector('#save');
 const resetBtn = document.querySelector('#reset');
 const timerDisplay = document.querySelector('#timer-display');
 const nextResultDisplay = document.getElementById('next-result-display');
+
 const form = document.querySelector('#modal-results');
+let inputElement = document.querySelector('.results-name');
+
+let showResultHeading = document.querySelector('.show-result-name');
+let showResultTime = document.querySelector('.show-result-time');
+let resultsBoard = document.querySelector('.show-results-board');
 
 let min = 0;
 let sec = 0;
@@ -135,6 +141,7 @@ function getSavedTimerResults() {
         timerData = [];
     };
 };
+
 
 
 startBtn.addEventListener('click', startTimer);
