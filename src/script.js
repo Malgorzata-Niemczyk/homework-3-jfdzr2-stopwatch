@@ -14,6 +14,10 @@ let sec = 0;
 let milisec = 0;
 let timerState = false;
 
+let timerResults = [
+    {times: []}
+];
+
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
 
@@ -82,8 +86,14 @@ function displayNextResult() {
         let liItem = document.createElement('li');
         liItem.setAttribute('class', 'next-result-item');
         nextResultDisplay.appendChild(liItem);
-        
-        liItem.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+
+        timerResults = [
+            {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]}
+        ];  
+
+        liItem.textContent = timerResults.map((timerResult) => {
+            return `${timerResult.times}`
+        }).join('');
     }
 };
 
