@@ -23,6 +23,7 @@ let timerState = false;
 let timerResults = [
     {times: []}
 ];
+let lastTimesList = [];
 
 let cardID = 0;
 
@@ -99,19 +100,19 @@ function displayNextResult() {
             {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]}
         ];  
 
-        liItem.textContent = timerResults.map((timerResult) => {
+        lastTimesList.push(liItem.textContent = timerResults.map((timerResult) => {
             return `${timerResult.times}`
-        }).join('');
+        }).join(''));
+
+        //console.log(lastTimesList);
     };
 };
 
 // saving timer results to localStorage
 function saveTimerResults() {
     if (timerState === false) { // saving the results only when the timer is not running
-        let timerResultsArr = [];
-
-        timerResultsArr.push(nextResultDisplay.innerHTML);
-        localStorage.setItem(`${inputElement.value}`, JSON.stringify(timerResultsArr));
+        
+        localStorage.setItem(`${inputElement.value}`, JSON.stringify(lastTimesList));
 
         // clearing the timer display and the other timer results upon clicking the save button
         min = 0;
