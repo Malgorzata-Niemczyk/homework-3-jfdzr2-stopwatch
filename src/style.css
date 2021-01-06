@@ -1,8 +1,8 @@
-.next-result-item {
-    margin-top: 10px;
+.result-item {
+    margin: 10px;
     text-align: center;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 20px;
     color: rgb(102, 102, 100);
 }
 
@@ -12,15 +12,16 @@
     left: 50%;
     transform: translate(-50%, -50%);
     margin-top: 25px;
-    width: 400px;
-    height: 200px;
+    width: 450px;
+    height: 220px;
     background-color: orange;
     display: none;
 }
 
 .results-title {
+    text-align: center;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .results-name {
@@ -44,9 +45,18 @@
     margin-left: 10px;
 }
 
+.results-board-area {
+    margin: 0;
+}
+
+.results-board-heading {
+    font-size: 25px;
+    margin: 15px;
+}
+
 .show-results-note {
     margin: 25px;
-    min-width: 200px;
+    min-width: 300px;
     background-color: tomato;
 }
 
@@ -80,11 +90,6 @@
     border-bottom-right-radius: 5px;
     background-color: rgb(240, 232, 232);
     transition: max-height 0.3s linear;  
-}
-
-.show-result-text {
-    text-align: center;
-    font-size: 20px;
 }
 
 li {
