@@ -13,15 +13,17 @@
   </head>
   <body class="bg-purple-300">
 
-    <div class="results-board-area">
+    <div class="results-board-area flex flex-col justify-center items-center">
+      <h2 class="results-board-heading font-bold font-sans">Zapisane wyniki</h2>
+
       <!-- <div class="show-results-note rounded-lg shadow-2xl">
         <div class="show-result-name">
           <h2>Mój wynik</h2>
           <p><i class="fas fa-chevron-down"></i></p>
         </div>
-        <div class="show-result-body">
-          <p class="show-result-text">00:05:46</p>
-        </div>
+        <ul class="show-result-body">
+          <li class="show-result-text">00:05:46</li>
+        </ul>
       </div> -->
     </div>
    
@@ -38,9 +40,9 @@
       class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl"
       style="background-color: #3cdfea"
     >
-      <h1 class="text-3xl font-bold font-sans text-indigo-600">Stopwatch</h1>
+      <h1 class="text-5xl font-bold font-sans text-indigo-600">Stopwatch</h1>
 
-      <h2 class="text-xl mt-8 font-bold font-sans text-indigo-600" id="timer-display">00:00:00</h2>
+      <h2 class="text-4xl mt-8 font-bold font-sans text-indigo-600" id="timer-display">00:00:00</h2>
       <div class="flex mt-12">
         <button
           class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="start"
