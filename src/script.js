@@ -127,22 +127,10 @@ function saveTimerResults() {
     }; 
 };
 
-// getting data from localStorage
-function getSavedTimerResults() {
-    const timerData = JSON.parse(localStorage.getItem(`${inputElement.value}`));
-
-    // checking if the localStorage with ${inputElement.value}` key exists
-    if (timerData) {
-        return timerData;
-    } else {
-        timerData = [];
-    };
-};
-
 function addAccordionFeature() {
-    const resultHeadings = document.querySelectorAll('.show-result-name');
+    const resultHeadings = document.getElementsByClassName('show-result-name');
 
-    resultHeadings.forEach(resultHeading => {
+    Array.from(resultHeadings).forEach(resultHeading => {
         resultHeading.addEventListener('click', () => {
     
             resultHeading.classList.toggle('active');
@@ -160,30 +148,48 @@ function addAccordionFeature() {
 
 function displaySavedTimerResults(event) {
     event.preventDefault();
-
+    
     saveTimerResults()
 
-    cardID++;
-    const resultWrapper = document.createElement('div');
-    resultWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
-    resultWrapper.setAttribute('id', cardID);
-    resultsBoardArea.appendChild(resultWrapper);
+    // getting data from localStorage
+    const timerData = JSON.parse(localStorage.getItem(`${inputElement.value}`));
+    // console.log(timerData);
 
-    resultWrapper.innerHTML = `
-        <div class="show-result-name">
-            <h2>${inputElement.value}</h2>
-            <p><i class="fas fa-chevron-down"></i></p>
-        </div>
-        <ul class="show-result-body">
-            <li class="result-item">${getSavedTimerResults()}</li>
-        </ul>
-    `;
+    // creating elements of the times results note 
+    const resultNoteWrapper = document.createElement('div');
+    resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultsBoardArea.appendChild(resultNoteWrapper);
 
+    const resultNameWrapper = document.createElement('div');
+    resultNameWrapper.classList.add('show-result-name');
+    resultNoteWrapper.appendChild(resultNameWrapper)
+
+    const resultHeading = document.createElement('h2');
+    resultHeading.innerHTML = `${inputElement.value}`;
+    resultNameWrapper.appendChild(resultHeading);
+
+    const arrowElement = document.createElement('p');
+    arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
+    resultNameWrapper.appendChild(arrowElement);
+
+    const ulElement = document.createElement('ul')
+    ulElement.classList.add('show-result-body');
+    resultNoteWrapper.appendChild(ulElement);
+    
+    for (let i = 0;  i < timerData.length; i++) {
+        const liItem = document.createElement('li');
+        liItem.classList.add('result-item');
+        liItem.innerHTML = timerData[i];
+        ulElement.appendChild(liItem);
+    
+        // console.log(liItem)
+    };
+    
     addAccordionFeature();
     
     inputElement.value = '';
     form.style.display = 'none';
-    resultWrapper.style.display = 'inline-block';
+    resultNoteWrapper.style.display = 'inline-block';
     lastTimesList = [];
 };
 
