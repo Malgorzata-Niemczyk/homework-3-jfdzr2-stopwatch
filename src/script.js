@@ -88,6 +88,7 @@ function resetTimer() {
     timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
 
     nextResultDisplay.innerHTML = '';
+    lastTimesList = [];
 }
 
 function displayNextResult() {
@@ -104,7 +105,7 @@ function displayNextResult() {
             return `${timerResult.times}`
         }).join(''));
 
-        //console.log(lastTimesList);
+        // console.log(lastTimesList);
     };
 };
 
@@ -183,6 +184,7 @@ function displaySavedTimerResults(event) {
     inputElement.value = '';
     form.style.display = 'none';
     resultWrapper.style.display = 'inline-block';
+    lastTimesList = [];
 };
 
 function hideForm() {
