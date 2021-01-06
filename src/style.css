@@ -46,7 +46,7 @@
 
 .show-results-note {
     margin: 25px;
-    width: 200px;
+    min-width: 200px;
     background-color: tomato;
 }
 
@@ -82,7 +82,10 @@
 }
 
 .show-result-text {
-    padding: 8px;
     text-align: center;
     font-size: 20px;
+}
+
+li {
+    list-style-type: none;
 }
