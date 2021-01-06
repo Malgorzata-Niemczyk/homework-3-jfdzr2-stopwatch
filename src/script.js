@@ -105,19 +105,13 @@ function displayNextResult() {
     };
 };
 
+// saving timer results to localStorage
 function saveTimerResults() {
     if (timerState === false) { // saving the results only when the timer is not running
         let timerResultsArr = [];
 
-        timerResults = [
-            {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]},
-        ];  
-
-        // saving data to localStorage
-        timerResultsArr.push(timerResults.map((timerResult) => {
-            return `${timerResult.times}`
-        }).join(''));
-        localStorage.setItem('myTimes', JSON.stringify(timerResultsArr));
+        timerResultsArr.push(nextResultDisplay.innerHTML);
+        localStorage.setItem(`${inputElement.value}`, JSON.stringify(timerResultsArr));
 
         // clearing the timer display and the other timer results upon clicking the save button
         min = 0;
@@ -133,7 +127,7 @@ function saveTimerResults() {
 
 // getting data from localStorage
 function getSavedTimerResults() {
-    const timerData = JSON.parse(localStorage.getItem('myTimes'));
+    const timerData = JSON.parse(localStorage.getItem(`${inputElement.value}`));
 
     // checking if the localStorage with 'myTimes' key exists
     if (timerData) {
@@ -162,10 +156,10 @@ function addAccordionFeature() {
     });
 };
 
-
-
 function displaySavedTimerResults(event) {
     event.preventDefault();
+
+    saveTimerResults()
 
     cardID++;
     const resultWrapper = document.createElement('div');
@@ -191,14 +185,19 @@ function displaySavedTimerResults(event) {
 };
 
 function hideForm() {
-    form.style.display = 'none'
+        form.style.display = 'none';
 };
+
+function showForm() {
+    form.style.display = 'flex';
+};
+
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
 resetBtn.addEventListener('click', resetTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 nextBtn.addEventListener('click', displayNextResult);
-saveBtn.addEventListener('click', saveTimerResults);
+saveBtn.addEventListener('click', showForm);
 form.addEventListener('submit', displaySavedTimerResults);
 cancelBtn.addEventListener('click', hideForm);
