@@ -93,7 +93,7 @@ function resetTimer() {
 function displayNextResult() {
     if (timerState !== false) {
         let liItem = document.createElement('li');
-        liItem.setAttribute('class', 'next-result-item');
+        liItem.setAttribute('class', 'result-item');
         nextResultDisplay.appendChild(liItem);
 
         timerResults = [
@@ -173,9 +173,9 @@ function displaySavedTimerResults(event) {
             <h2>${inputElement.value}</h2>
             <p><i class="fas fa-chevron-down"></i></p>
         </div>
-        <div class="show-result-body">
-            <p class="show-result-text">${getSavedTimerResults()}</p>
-        </div>
+        <ul class="show-result-body">
+            <li class="result-item">${getSavedTimerResults()}</li>
+        </ul>
     `;
 
     addAccordionFeature();
