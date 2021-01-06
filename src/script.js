@@ -131,7 +131,7 @@ function saveTimerResults() {
 function getSavedTimerResults() {
     const timerData = JSON.parse(localStorage.getItem(`${inputElement.value}`));
 
-    // checking if the localStorage with 'myTimes' key exists
+    // checking if the localStorage with ${inputElement.value}` key exists
     if (timerData) {
         return timerData;
     } else {
