@@ -6,10 +6,10 @@ These are the issues I encountered when adding functionality to the stopwatch an
 
 ![](./screenshots/hiding-modal.jpg) 
 
-2. The accodtion feature does not work fully. When the result notes are added, only every other element has a properly working accordion (the others have this feature disabled).
+2. The accordion feature does not work fully. When the result notes are added, only every other element has a properly working accordion (the others have this feature disabled).
 
 ![](./screenshots/accordion.jpg)
 
 3. The saved results notes, displayed as accordion, do not stay on the webpage when refreshing it despite still having this data in local storage.
 
-4. When saving a single time result from the main timer display into local storage, it gets saved as an empty array.
+4. When saving a single time result from the main timer display into local storage (without adding new times upon pressing the next button), it gets saved as an empty array.
