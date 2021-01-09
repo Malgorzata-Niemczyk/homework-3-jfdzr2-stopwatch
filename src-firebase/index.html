@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch</title>
+    <script src="https://kit.fontawesome.com/6e1e617458.js" crossorigin="anonymous"></script>
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-purple-300">
+
+    <div class="results-board-area flex flex-col justify-center items-center">
+      <h2 class="results-board-heading font-bold font-sans">Zapisane wyniki</h2>
+
+      <!-- <div class="show-results-note rounded-lg shadow-2xl">
+        <div class="show-result-name">
+          <h2>Mój wynik</h2>
+          <p><i class="fas fa-chevron-down"></i></p>
+        </div>
+        <ul class="show-result-body">
+          <li class="result-item">00:05:46</li>
+        </ul>
+      </div> -->
+    </div>
+   
+    <form class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl" id="modal-results">
+      <label for="timer-results" class="results-title font-bold font-sans">Nadaj nazwę swojemu wynikowi:</label>
+      <input class="results-name" type="text" placeholder="Nadaj nazwę..." required>
+      <div>
+        <button type="submit" class="modal-submit-btn">SUBMIT</button> 
+        <button class="modal-cancel-btn"><i class="far fa-window-close"></i> CANCEL</button>
+      </div>
+    </form>
+
+    <main
+      class="container mx-auto mt-24 p-12 flex flex-col justify-center items-center rounded-lg shadow-2xl"
+      style="background-color: #3cdfea"
+    >
+      <h1 class="text-5xl font-bold font-sans text-indigo-600">Stopwatch</h1>
+
+      <h2 class="text-4xl mt-8 font-bold font-sans text-indigo-600" id="timer-display">00:00:00</h2>
+      <div class="flex mt-12">
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="start"
+        >
+          Start
+        </button>
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="next"
+          >
+        >
+          Next
+        </button>
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="stop"
+        >
+          Stop
+        </button>
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="pause"
+        >
+          Pause
+        </button>
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="save"
+        >
+          Save
+        </button>
+        <button
+          class="bg-pink-800 hover:bg-pink-00 px-4 py-2 rounded mr-4 text-xl font-sans font-bold text-yellow-200" id="reset"
+        >
+          Reset
+        </button>
+      </div>
+      <section class="mt-12">
+        <h2 class="text-xl font-bold font-sans text-indigo-600">
+          Ostatnie wyniki
+        </h2>
+        <ul id="next-result-display">
+          <!-- <li class="next-result-item">00:00:00</li>
+          <li class="next-result-item">00:00:00</li>
+          <li class="next-result-item">00:00:00</li> -->
+        </ul>
+      </section>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
