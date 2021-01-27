@@ -130,7 +130,7 @@ function addAccordionFeature() {
     });
 };
 
-function displaySavedTimerResults(event) {
+function createSavedResultsList(event) {
     event.preventDefault();
 
     let resultItem = {
@@ -199,5 +199,5 @@ resetBtn.addEventListener('click', resetTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 nextBtn.addEventListener('click', displayNextResult);
 saveBtn.addEventListener('click', showForm);
-form.addEventListener('submit', displaySavedTimerResults);
+form.addEventListener('submit', createSavedResultsList);
 cancelBtn.addEventListener('click', hideForm);
