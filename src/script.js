@@ -23,7 +23,9 @@ let timerState = false;
 let timerResults = [
     {times: []}
 ];
-let lastTimesList = [];
+
+let lastTimesList = []; // to add last results to the ul list
+const timerDataArr = []; // to save objects into localStorage
 
 let cardID = 0;
 
@@ -109,24 +111,6 @@ function displayNextResult() {
     };
 };
 
-// saving timer results to localStorage
-function saveTimerResults() {
-    if (timerState === false) { // saving the results only when the timer is not running
-        
-        localStorage.setItem(`${inputElement.value}`, JSON.stringify(lastTimesList));
-
-        // clearing the timer display and the other timer results upon clicking the save button
-        min = 0;
-        sec = 0;
-        milisec = 0;
-        timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
-        nextResultDisplay.innerHTML = '';
-
-        // display the modal upon saving the results
-        form.style.display = 'flex';
-    }; 
-};
-
 function addAccordionFeature() {
     const resultHeadings = document.getElementsByClassName('show-result-name');
 
@@ -148,12 +132,11 @@ function addAccordionFeature() {
 
 function displaySavedTimerResults(event) {
     event.preventDefault();
-    
-    saveTimerResults()
 
-    // getting data from localStorage
-    const timerData = JSON.parse(localStorage.getItem(`${inputElement.value}`));
-    // console.log(timerData);
+    let resultItem = {
+        name: inputElement.value,
+        time: lastTimesList,
+    }
 
     // creating elements of the times results note 
     const resultNoteWrapper = document.createElement('div');
@@ -165,7 +148,7 @@ function displaySavedTimerResults(event) {
     resultNoteWrapper.appendChild(resultNameWrapper)
 
     const resultHeading = document.createElement('h2');
-    resultHeading.innerHTML = `${inputElement.value}`;
+    resultHeading.innerHTML = resultItem.name;
     resultNameWrapper.appendChild(resultHeading);
 
     const arrowElement = document.createElement('p');
@@ -176,17 +159,24 @@ function displaySavedTimerResults(event) {
     ulElement.classList.add('show-result-body');
     resultNoteWrapper.appendChild(ulElement);
     
-    for (let i = 0;  i < timerData.length; i++) {
-        const liItem = document.createElement('li');
-        liItem.classList.add('result-item');
-        liItem.innerHTML = timerData[i];
-        ulElement.appendChild(liItem);
-    
-        // console.log(liItem)
-    };
+    const liItem = document.createElement('li');
+    liItem.classList.add('result-item');
+    liItem.innerHTML = resultItem.time;
+    ulElement.appendChild(liItem);
     
     addAccordionFeature();
+
+    // saving timer results to localStorage
+    timerDataArr.push(resultItem);
+    localStorage.setItem('myResults', JSON.stringify(timerDataArr))
     
+    // clearing the timer display and the other timer results upon clicking the save button
+    min = 0;
+    sec = 0;
+    milisec = 0;
+    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+    nextResultDisplay.innerHTML = '';
+
     inputElement.value = '';
     form.style.display = 'none';
     resultNoteWrapper.style.display = 'inline-block';
@@ -195,6 +185,7 @@ function displaySavedTimerResults(event) {
 
 function hideForm() {
         form.style.display = 'none';
+        inputElement.value = '';
 };
 
 function showForm() {
