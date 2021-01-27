@@ -25,12 +25,49 @@ let timerResults = [
 ];
 
 let lastTimesList = []; // to add last results to the ul list
-const timerDataArr = []; // to save objects into localStorage
+let timerDataArr = []; // to save objects into localStorage
 
 let cardID = 0;
 
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
+
+//retrieving data from localStorage
+timerDataArr = timerDataArr.concat(JSON.parse(localStorage.getItem('myResults') || '[]'));
+// console.log(timerDataArr)
+
+if (timerDataArr) {
+    timerDataArr.forEach(result => renderTimerResults(result))
+};
+
+function renderTimerResults(result) {
+    const resultNoteWrapper = document.createElement('div');
+    resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultsBoardArea.appendChild(resultNoteWrapper);
+
+    const resultNameWrapper = document.createElement('div');
+    resultNameWrapper.classList.add('show-result-name');
+    resultNoteWrapper.appendChild(resultNameWrapper)
+
+    const resultHeading = document.createElement('h2');
+    resultHeading.innerHTML = result.name;
+    resultNameWrapper.appendChild(resultHeading);
+
+    const arrowElement = document.createElement('p');
+    arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
+    resultNameWrapper.appendChild(arrowElement);
+
+    const ulElement = document.createElement('ul')
+    ulElement.classList.add('show-result-body');
+    resultNoteWrapper.appendChild(ulElement);
+    
+    const liItem = document.createElement('li');
+    liItem.classList.add('result-item');
+    liItem.innerHTML = result.time;
+    ulElement.appendChild(liItem);
+    
+    addAccordionFeature();
+};
 
 // Starting the timer
 function startTimer() {
@@ -65,7 +102,6 @@ function stopTimer() {
     saveBtn.style.display = 'block';
     startBtn.style.display = 'block';     
 };
-
 
 function pauseTimer() {
     if (timerState === false) /*clicked to continue running the timer*/ {
@@ -191,7 +227,6 @@ function hideForm() {
 function showForm() {
     form.style.display = 'flex';
 };
-
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
