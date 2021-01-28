@@ -2,56 +2,53 @@
 
 [My StopWatch - With Added JS Functionality](https://malgorzata-niemczyk.github.io/jfdzr2-homework-3/src/index.html)
 
-Z powodu panującej pandemii pozamykane zostały siłownie i strasznie mi do nich tęskno.
+This is a homework activity that I completed while learning a JavaScript module on a Front-end Developer course at InfoShareAcademy. The aim of the activity was to add the functionalities to a stopwatch app using JavaScript:
 
-Na tyle, że potrzebuję od Ciebie aplikacji, która ma działać jak Stoper :)
+Required functionalities:
 
-Wymagane funkcjonalności
+Start - to start the timer
 
-Start - Odpalenie czasomierza
+Stop - to stop the timer
 
-Stop - Zatrzymanie na obecnym wyniku
+Pause - to pause the timer
 
-Pauza - Zapauzowanie
+Reset - to reset the timer results without saving
 
-Reset - Reset wyników bez zapisywania
+Next - to add another timer, and the previous timer result is displayed below the main time. (As a simulation of a situation when one runner gets into a finish line and then the timer is started for another runner)
 
-Next - Odpalenie dodatkowego czasomierza, a poprzedni czas jest wyświetlony poniżej. (Symulacja tego, że ktoś już dobiegł na metę i odliczamy dalej czas dla kolejnej nadchodzącej osoby)
+Save - to save the timer results into localStorage
 
-Save - Zapisanie danych w localStorage
+## Dependencies To Take Into Account
 
-## Zależności, które powinny zostać uwzględnione
+* The **Save** button cannot be pressed until the **Stop** button is pressed
+* After pressing the **Pause** button, the timer can be resumed using either the **Start** or **Pause** button
+* After pressing the **Save** button, all the current timer results are cleared and the timer is ready to be reused
 
-* Nie mogę nacisnąć przycisku **Save** dopóki nie nacisnąłem **Stop**
-* Po naciśnięciu **Pause** mogę wznowić licznik używając **Start** lub **Pause**
-* Po naciśnięciu **Save** czyścimy obecne czasy i stoper jest do ponownego użycia
+## Saving The Timer Results
 
-## Zapisywanie wyników
+The results should be saved into localStorage.
 
-Wyniki powinny zostać zapisane w localStorage.
+There should be a possibility to give a name to the timer results that are to be saved.
 
-Chciałbym mieć możliwość nadania nazwy dla wpisu.
-
-Chciałbym żeby wyświetlanie wyników korzystało z feature'u akordeon, czyli klikam w **nazwę** wpisu i wyjeżdżają mi czasy zapisane pod tym wpisem :)
+The displayed timer results should use the accordion feature, that is, when the **name** of the saved result it clicked, timer results should be shown below 
 
 ## Bonus
 
-* Wyświetlanie czasu jak w prawdziwych stoperach (setne sekund)
-* Przycisk **STOP** jest widoczny dopiero po naciśnięciu **START**
-* Przycisk **SAVE** jest widoczny dopiero po naciśnięciu **STOP**
+* Displaying the timer in a format like on real stopwatches (including milliseconds)
+* The **STOP** is not visible until after the **START** button is pressed
+* The **SAVE** button is not visible until after the **STOP** button is pressed
+
 
 ### Extra Bonus
 
-* Zapisywanie danych w Firebase
+* Saving data into Firebase
 
-## Punktacja
+## Scores for The Task
 
-Działający Stoper i wszystkie funkcjonalności: 8 pkt
+Working stopwatch and all its functionalities: 8 points
 
-Funkcjonalności START, PAUSE, RESET: 3 pkt (czyli bez NEXT, bez zapisywania i STOP, bieda wersja po prostu)
+Basic functionalities including START, PAUSE, RESET: 3 points (that is, without NEXT, STOP and SAVE)
 
-Bonusy: 3 pkt
+Bonuses: 3 points
 
-Extra Bonus: 1 pkt
-
-## **TERMIN 10.01.2021 14:00**
+Extra Bonus: 1 point
