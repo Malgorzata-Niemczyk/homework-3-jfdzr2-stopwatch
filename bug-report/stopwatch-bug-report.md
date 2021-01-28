@@ -14,6 +14,6 @@
 
 4. When saving a single time result from the main timer display into local storage (without adding new times upon pressing the next button), it gets saved as an empty array.
 
-### I have managed to fix the following issues: issue No 1, issue No 2 and issue No 4
+### Later I have managed to fix all the above issues.
 
 
