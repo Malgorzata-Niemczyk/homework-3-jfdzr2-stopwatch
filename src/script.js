@@ -60,12 +60,14 @@ function renderTimerResults(result) {
     const ulElement = document.createElement('ul')
     ulElement.classList.add('show-result-body');
     resultNoteWrapper.appendChild(ulElement);
-    
-    const liItem = document.createElement('li');
-    liItem.classList.add('result-item');
-    liItem.innerHTML = result.time;
-    ulElement.appendChild(liItem);
-    
+
+    for (let i = 0;  i < result.time.length; i++) {
+        const liItem = document.createElement('li');
+        liItem.classList.add('result-item');
+        liItem.innerHTML = result.time[i];
+        ulElement.appendChild(liItem);
+    }; 
+
     let currentHeadings = document.querySelectorAll('.show-result-name');
     let lastHeading = currentHeadings[currentHeadings.length - 1];
 
@@ -215,10 +217,13 @@ function createSavedResultsList(event) {
     ulElement.classList.add('show-result-body');
     resultNoteWrapper.appendChild(ulElement);
     
-    const liItem = document.createElement('li');
-    liItem.classList.add('result-item');
-    liItem.innerHTML = resultItem.time;
-    ulElement.appendChild(liItem);
+    for (let i = 0;  i < resultItem.time.length; i++) {
+        const liItem = document.createElement('li');
+        liItem.classList.add('result-item');
+        liItem.innerHTML = resultItem.time[i];
+        ulElement.appendChild(liItem);
+    }; 
+
 
     // get all the elements with the result name heading to apply the accordion feature on them
     let currentHeadings = document.querySelectorAll('.show-result-name');
