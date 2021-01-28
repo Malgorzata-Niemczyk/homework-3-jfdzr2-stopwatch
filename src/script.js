@@ -186,25 +186,6 @@ function displayNextResult() {
     };
 };
 
-function addAccordionFeature() {
-    const resultHeadings = document.getElementsByClassName('show-result-name');
-
-    Array.from(resultHeadings).forEach(resultHeading => {
-        resultHeading.addEventListener('click', () => {
-    
-            resultHeading.classList.toggle('active');
-    
-            const resultBodyElements = resultHeading.nextElementSibling;
-    
-            if (resultHeading.classList.contains('active')) {
-                resultBodyElements.style.maxHeight = `${resultBodyElements.scrollHeight}px`;
-            } else {
-                resultBodyElements.style.maxHeight = 0;
-            }
-        })
-    });
-};
-
 function createSavedResultsList(event) {
     event.preventDefault();
 
@@ -239,7 +220,11 @@ function createSavedResultsList(event) {
     liItem.innerHTML = resultItem.time;
     ulElement.appendChild(liItem);
 
-    addAccordionFeature();
+    // get all the elements with the result name heading to apply the accordion feature on them
+    let currentHeadings = document.querySelectorAll('.show-result-name');
+    let lastHeading = currentHeadings[currentHeadings.length - 1];
+
+    renderAccordionFeature(lastHeading);
 
     // saving timer results to localStorage
     timerDataArr.push(resultItem);
