@@ -98,9 +98,13 @@ function stopTimer() {
     clearInterval(timerState);
     timerState = false;
 
+    displayOneResult()
+
+    timerDisplay.innerHTML = '00:00:00';
     stopBtn.style.display = 'none';
     saveBtn.style.display = 'block';
-    startBtn.style.display = 'block';     
+    startBtn.style.display = 'block'; 
+    
 };
 
 function pauseTimer() {
@@ -128,6 +132,24 @@ function resetTimer() {
     nextResultDisplay.innerHTML = '';
     lastTimesList = [];
 }
+
+function displayOneResult() {
+    if (timerState === false) {
+        let liItem = document.createElement('li');
+        liItem.setAttribute('class', 'result-item');
+        nextResultDisplay.appendChild(liItem);
+
+        timerResults = [
+            {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]}
+        ];  
+
+        lastTimesList.push(liItem.textContent = timerResults.map((timerResult) => {
+            return `${timerResult.times}`
+        }).join(''));
+
+        // console.log(lastTimesList);
+    };
+};
 
 function displayNextResult() {
     if (timerState !== false) {
