@@ -30,12 +30,12 @@ The results should be saved into localStorage.
 
 There should be a possibility to give a name to the timer results that are to be saved.
 
-The displayed timer results should use the accordion feature, that is, when the **name** of the saved result it clicked, timer results should be shown below 
+The displayed timer results should use the accordion feature, that is, when the **name** of the saved result is clicked, the timer results should be shown below 
 
 ## Bonus
 
 * Displaying the timer in a format like on real stopwatches (including milliseconds)
-* The **STOP** is not visible until after the **START** button is pressed
+* The **STOP** button is not visible until after the **START** button is pressed
 * The **SAVE** button is not visible until after the **STOP** button is pressed
 
 
