@@ -66,7 +66,25 @@ function renderTimerResults(result) {
     liItem.innerHTML = result.time;
     ulElement.appendChild(liItem);
     
-    addAccordionFeature();
+    let currentHeadings = document.querySelectorAll('.show-result-name');
+    let lastHeading = currentHeadings[currentHeadings.length - 1];
+
+    renderAccordionFeature(lastHeading);
+};
+
+function renderAccordionFeature(item) {
+    item.addEventListener('click', () => {
+
+        item.classList.toggle('active');
+    
+            const resultBodyElements = item.nextElementSibling;
+    
+            if (item.classList.contains('active')) {
+                resultBodyElements.style.maxHeight = `${resultBodyElements.scrollHeight}px`;
+            } else {
+                resultBodyElements.style.maxHeight = 0;
+            }
+    });
 };
 
 // Starting the timer
@@ -98,13 +116,12 @@ function stopTimer() {
     clearInterval(timerState);
     timerState = false;
 
-    displayOneResult()
+    displayOneResult();
 
     timerDisplay.innerHTML = '00:00:00';
     stopBtn.style.display = 'none';
     saveBtn.style.display = 'block';
     startBtn.style.display = 'block'; 
-    
 };
 
 function pauseTimer() {
@@ -221,7 +238,7 @@ function createSavedResultsList(event) {
     liItem.classList.add('result-item');
     liItem.innerHTML = resultItem.time;
     ulElement.appendChild(liItem);
-    
+
     addAccordionFeature();
 
     // saving timer results to localStorage
