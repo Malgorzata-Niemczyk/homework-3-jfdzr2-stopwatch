@@ -96,6 +96,8 @@ function startTimer() {
         stopBtn.style.display = 'block'
         saveBtn.style.display = 'none';
         startBtn.style.display = 'none';
+        nextBtn.style.display = 'block'
+        pauseBtn.textContent = 'Pause';
     }      
 };
 
@@ -121,21 +123,28 @@ function stopTimer() {
     displayOneResult();
 
     timerDisplay.innerHTML = '00:00:00';
-    stopBtn.style.display = 'none';
     saveBtn.style.display = 'block';
-    startBtn.style.display = 'block'; 
+    stopBtn.style.display = 'none';
+    startBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    pauseBtn.style.display = 'none';
 };
 
 function pauseTimer() {
     if (timerState === false) /*clicked to continue running the timer*/ {
         timerState = setInterval(formatTimer, 10);
-        stopBtn.style.display = 'block'
+        stopBtn.style.display = 'block';
+        nextBtn.style.display = 'block'; 
         saveBtn.style.display = 'none';
+        pauseBtn.textContent = 'Pause';
     } else /*clicked to pause the timer*/{
         clearInterval(timerState);
         timerState = false;
+        stopBtn.style.display = 'none';
         saveBtn.style.display = 'none';
-        startBtn.style.display = 'block';  
+        startBtn.style.display = 'block';
+        nextBtn.style.display = 'none'; 
+        pauseBtn.textContent = 'Resume';
     }; 
 };
 
@@ -149,7 +158,18 @@ function resetTimer() {
     timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
 
     nextResultDisplay.innerHTML = '';
+    pauseBtn.textContent = 'Pause';
+
     lastTimesList = [];
+
+    // setting up the initial display of the buttons after pressing the reset button either when the timer is running or when the timer is stopped
+    if (timerState === true || timerState === false) {
+        startBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+        stopBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
+    };
 }
 
 function displayOneResult() {
@@ -246,6 +266,13 @@ function createSavedResultsList(event) {
     form.style.display = 'none';
     resultNoteWrapper.style.display = 'inline-block';
     lastTimesList = [];
+
+    // setting up the initial display of the buttons after adding a saved result
+    startBtn.style.display = 'block';
+    stopBtn.style.display = 'none';
+    nextBtn.style.display = 'block';
+    pauseBtn.style.display = 'block';
+    saveBtn.style.display = 'none';
 };
 
 function hideForm() {
