@@ -12,8 +12,16 @@
 
 ![](./screenshots/accordion.jpg)
 
-4. When saving a single time result from the main timer display into local storage (without adding new times upon pressing the next button), it gets saved as an empty array.
+4. When saving a single time result from the main timer display into localStorage (without adding new times upon pressing the next button), it gets saved as an empty array.
 
-### Later I have managed to fix all the above issues.
+### Later I have managed to fix all the above issues on the fix-localStorage branch in the following way:
+
+1. Added a "type" attribute with a value of button.
+
+2. Created the renderTimerResults() function to render the elements of the accordion with the data retrieved from localStorage and triggered this function if the localStorage with 'myResults' key exists.
+
+3. Used the the renderTimerResults() function and within this function the renderAccordionFeature() function is triggered. 
+
+4. Created the displayOneResult() function that upon saving the item drops the result from the timer display into an Li tag and pushes it into the lastTimesList array (this is a similar way as in the displayNextResult() function).
 
 
