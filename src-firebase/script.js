@@ -23,12 +23,71 @@ let timerState = false;
 let timerResults = [
     {times: []}
 ];
-let lastTimesList = [];
+
+let lastTimesList = []; // to add last results to the ul list
+let timerDataArr = []; // to save objects into localStorage
 
 let cardID = 0;
 
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
+
+//retrieving data from localStorage
+timerDataArr = timerDataArr.concat(JSON.parse(localStorage.getItem('myResults') || '[]'));
+// console.log(timerDataArr)
+
+if (timerDataArr) {
+    timerDataArr.forEach(result => renderTimerResults(result))
+};
+
+function renderTimerResults(result) {
+    const resultNoteWrapper = document.createElement('div');
+    resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultsBoardArea.appendChild(resultNoteWrapper);
+
+    const resultNameWrapper = document.createElement('div');
+    resultNameWrapper.classList.add('show-result-name');
+    resultNoteWrapper.appendChild(resultNameWrapper)
+
+    const resultHeading = document.createElement('h2');
+    resultHeading.innerHTML = result.name;
+    resultNameWrapper.appendChild(resultHeading);
+
+    const arrowElement = document.createElement('p');
+    arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
+    resultNameWrapper.appendChild(arrowElement);
+
+    const ulElement = document.createElement('ul')
+    ulElement.classList.add('show-result-body');
+    resultNoteWrapper.appendChild(ulElement);
+
+    for (let i = 0;  i < result.time.length; i++) {
+        const liItem = document.createElement('li');
+        liItem.classList.add('result-item');
+        liItem.innerHTML = result.time[i];
+        ulElement.appendChild(liItem);
+    }; 
+
+    let currentHeadings = document.querySelectorAll('.show-result-name');
+    let lastHeading = currentHeadings[currentHeadings.length - 1];
+
+    renderAccordionFeature(lastHeading);
+};
+
+function renderAccordionFeature(item) {
+    item.addEventListener('click', () => {
+
+        item.classList.toggle('active');
+    
+            const resultBodyElements = item.nextElementSibling;
+    
+            if (item.classList.contains('active')) {
+                resultBodyElements.style.maxHeight = `${resultBodyElements.scrollHeight}px`;
+            } else {
+                resultBodyElements.style.maxHeight = 0;
+            }
+    });
+};
 
 // Starting the timer
 function startTimer() {
@@ -37,6 +96,8 @@ function startTimer() {
         stopBtn.style.display = 'block'
         saveBtn.style.display = 'none';
         startBtn.style.display = 'none';
+        nextBtn.style.display = 'block'
+        pauseBtn.textContent = 'Pause';
     }      
 };
 
@@ -59,22 +120,31 @@ function stopTimer() {
     clearInterval(timerState);
     timerState = false;
 
-    stopBtn.style.display = 'none';
-    saveBtn.style.display = 'block';
-    startBtn.style.display = 'block';     
-};
+    displayOneResult();
 
+    timerDisplay.innerHTML = '00:00:00';
+    saveBtn.style.display = 'block';
+    stopBtn.style.display = 'none';
+    startBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    pauseBtn.style.display = 'none';
+};
 
 function pauseTimer() {
     if (timerState === false) /*clicked to continue running the timer*/ {
         timerState = setInterval(formatTimer, 10);
-        stopBtn.style.display = 'block'
+        stopBtn.style.display = 'block';
+        nextBtn.style.display = 'block'; 
         saveBtn.style.display = 'none';
+        pauseBtn.textContent = 'Pause';
     } else /*clicked to pause the timer*/{
         clearInterval(timerState);
         timerState = false;
+        stopBtn.style.display = 'none';
         saveBtn.style.display = 'none';
-        startBtn.style.display = 'block';  
+        startBtn.style.display = 'block';
+        nextBtn.style.display = 'none'; 
+        pauseBtn.textContent = 'Resume';
     }; 
 };
 
@@ -88,8 +158,37 @@ function resetTimer() {
     timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
 
     nextResultDisplay.innerHTML = '';
+    pauseBtn.textContent = 'Pause';
+
     lastTimesList = [];
+
+    // setting up the initial display of the buttons after pressing the reset button either when the timer is running or when the timer is stopped
+    if (timerState === true || timerState === false) {
+        startBtn.style.display = 'block';
+        nextBtn.style.display = 'block';
+        stopBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
+        saveBtn.style.display = 'none';
+    };
 }
+
+function displayOneResult() {
+    if (timerState === false) {
+        let liItem = document.createElement('li');
+        liItem.setAttribute('class', 'result-item');
+        nextResultDisplay.appendChild(liItem);
+
+        timerResults = [
+            {times: [(min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec)]}
+        ];  
+
+        lastTimesList.push(liItem.textContent = timerResults.map((timerResult) => {
+            return `${timerResult.times}`
+        }).join(''));
+
+        // console.log(lastTimesList);
+    };
+};
 
 function displayNextResult() {
     if (timerState !== false) {
@@ -109,113 +208,81 @@ function displayNextResult() {
     };
 };
 
-// saving timer results to localStorage
-function saveTimerResults() {
-    if (timerState === false) {
-        //saving data to Firebase
-        firebase.firestore().collection('timer-results').add({
-            name: form.name.value
-        });
-        form.name.value = '';
-
-        // clearing the timer display and the other timer results upon clicking the save button
-        min = 0;
-        sec = 0;
-        milisec = 0;
-        timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
-        nextResultDisplay.innerHTML = '';
-
-        // display the modal upon saving the results
-        form.style.display = 'flex';
-    }; 
-};
-
-function addAccordionFeature() {
-    const resultHeadings = document.getElementsByClassName('show-result-name');
-
-    Array.from(resultHeadings).forEach(resultHeading => {
-        resultHeading.addEventListener('click', () => {
-    
-            resultHeading.classList.toggle('active');
-    
-            const resultBodyElements = resultHeading.nextElementSibling;
-    
-            if (resultHeading.classList.contains('active')) {
-                resultBodyElements.style.maxHeight = `${resultBodyElements.scrollHeight}px`;
-            } else {
-                resultBodyElements.style.maxHeight = 0;
-            }
-        })
-    });
-};
-
- // getting data from Firebase
-firebase.firestore().collection('timer-results').onSnapshot(timerData => {
-    timerData.docs.forEach(doc => {
-            loadResults(doc);
-        });
-    });
-    
-
-function loadResults(doc) {
-     // creating elements of the times results note 
-
-         const resultNoteWrapper = document.createElement('div');
-         resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
-         resultsBoardArea.appendChild(resultNoteWrapper);
-     
-         const resultNameWrapper = document.createElement('div');
-         resultNameWrapper.classList.add('show-result-name');
-         resultNoteWrapper.appendChild(resultNameWrapper)
-     
-         const resultHeading = document.createElement('h2');
-         resultHeading.setAttribute('data-id', doc.id);
-         resultHeading.textContent = doc.data().name;
-         resultNameWrapper.appendChild(resultHeading);
-     
-         const arrowElement = document.createElement('p');
-         arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
-         resultNameWrapper.appendChild(arrowElement);
-     
-         const ulElement = document.createElement('ul')
-         ulElement.classList.add('show-result-body');
-         resultNoteWrapper.appendChild(ulElement);
-         
-         for (let i = 0;  i < doc.length; i++) {
-             const liItem = document.createElement('li');
-             liItem.setAttribute('data-id', id);
-             liItem.classList.add('result-item');
-             liItem.textContent = doc.data().times;
-             ulElement.appendChild(liItem);
-         
-             console.log(liIte.textContent)
-        };
-    
-        addAccordionFeature();
-}
-
-
-function displaySavedTimerResults(event) {
+function createSavedResultsList(event) {
     event.preventDefault();
+
+    let resultItem = {
+        name: inputElement.value,
+        time: lastTimesList,
+    }
+
+    // creating elements of the times results note 
+    const resultNoteWrapper = document.createElement('div');
+    resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultsBoardArea.appendChild(resultNoteWrapper);
+
+    const resultNameWrapper = document.createElement('div');
+    resultNameWrapper.classList.add('show-result-name');
+    resultNoteWrapper.appendChild(resultNameWrapper)
+
+    const resultHeading = document.createElement('h2');
+    resultHeading.innerHTML = resultItem.name;
+    resultNameWrapper.appendChild(resultHeading);
+
+    const arrowElement = document.createElement('p');
+    arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
+    resultNameWrapper.appendChild(arrowElement);
+
+    const ulElement = document.createElement('ul')
+    ulElement.classList.add('show-result-body');
+    resultNoteWrapper.appendChild(ulElement);
     
-    loadResults()
+    for (let i = 0;  i < resultItem.time.length; i++) {
+        const liItem = document.createElement('li');
+        liItem.classList.add('result-item');
+        liItem.innerHTML = resultItem.time[i];
+        ulElement.appendChild(liItem);
+    }; 
+
+
+    // get all the elements with the result name heading to apply the accordion feature on them
+    let currentHeadings = document.querySelectorAll('.show-result-name');
+    let lastHeading = currentHeadings[currentHeadings.length - 1];
+
+    renderAccordionFeature(lastHeading);
+
+    // saving timer results to localStorage
+    timerDataArr.push(resultItem);
+    localStorage.setItem('myResults', JSON.stringify(timerDataArr))
     
-    saveTimerResults()
-    
+    // clearing the timer display and the other timer results upon clicking the save button
+    min = 0;
+    sec = 0;
+    milisec = 0;
+    timerDisplay.innerHTML = (min < 10 ? `0${min}` : min) + ":" + (sec < 10 ? `0${sec}` : sec) + ":" + (milisec < 10 ? `0${milisec}` : milisec);
+    nextResultDisplay.innerHTML = '';
+
     inputElement.value = '';
     form.style.display = 'none';
     resultNoteWrapper.style.display = 'inline-block';
     lastTimesList = [];
+
+    // setting up the initial display of the buttons after adding a saved result
+    startBtn.style.display = 'block';
+    stopBtn.style.display = 'none';
+    nextBtn.style.display = 'block';
+    pauseBtn.style.display = 'block';
+    saveBtn.style.display = 'none';
 };
 
 function hideForm() {
         form.style.display = 'none';
+        inputElement.value = '';
 };
 
 function showForm() {
     form.style.display = 'flex';
 };
-
 
 startBtn.addEventListener('click', startTimer);
 stopBtn.addEventListener('click', stopTimer);
@@ -223,5 +290,5 @@ resetBtn.addEventListener('click', resetTimer);
 pauseBtn.addEventListener('click', pauseTimer);
 nextBtn.addEventListener('click', displayNextResult);
 saveBtn.addEventListener('click', showForm);
-form.addEventListener('submit', displaySavedTimerResults);
+form.addEventListener('submit', createSavedResultsList);
 cancelBtn.addEventListener('click', hideForm);
