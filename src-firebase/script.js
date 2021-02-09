@@ -218,45 +218,9 @@ function createSavedResultsList(event) {
         time: lastTimesList,
     }
 
-    // creating elements of the times results note 
-    const resultNoteWrapper = document.createElement('div');
-    resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
-    resultsBoardArea.appendChild(resultNoteWrapper);
+    // saving timer results to Firebase
+    firebase.firestore().collection('timer-results').add(resultItem);
 
-    const resultNameWrapper = document.createElement('div');
-    resultNameWrapper.classList.add('show-result-name');
-    resultNoteWrapper.appendChild(resultNameWrapper)
-
-    const resultHeading = document.createElement('h2');
-    resultHeading.innerHTML = resultItem.name;
-    resultNameWrapper.appendChild(resultHeading);
-
-    const arrowElement = document.createElement('p');
-    arrowElement.innerHTML = '<i class="fas fa-chevron-down">';
-    resultNameWrapper.appendChild(arrowElement);
-
-    const ulElement = document.createElement('ul')
-    ulElement.classList.add('show-result-body');
-    resultNoteWrapper.appendChild(ulElement);
-    
-    for (let i = 0;  i < resultItem.time.length; i++) {
-        const liItem = document.createElement('li');
-        liItem.classList.add('result-item');
-        liItem.innerHTML = resultItem.time[i];
-        ulElement.appendChild(liItem);
-    }; 
-
-
-    // get all the elements with the result name heading to apply the accordion feature on them
-    let currentHeadings = document.querySelectorAll('.show-result-name');
-    let lastHeading = currentHeadings[currentHeadings.length - 1];
-
-    renderAccordionFeature(lastHeading);
-
-    // saving timer results to localStorage
-    timerDataArr.push(resultItem);
-    localStorage.setItem('myResults', JSON.stringify(timerDataArr))
-    
     // clearing the timer display and the other timer results upon clicking the save button
     min = 0;
     sec = 0;
@@ -266,7 +230,6 @@ function createSavedResultsList(event) {
 
     inputElement.value = '';
     form.style.display = 'none';
-    resultNoteWrapper.style.display = 'inline-block';
     lastTimesList = [];
 
     // setting up the initial display of the buttons after adding a saved result
