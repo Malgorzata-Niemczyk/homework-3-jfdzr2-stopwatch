@@ -32,25 +32,25 @@ let cardID = 0;
 stopBtn.style.display = 'none';
 saveBtn.style.display = 'none';
 
-//retrieving data from localStorage
-timerDataArr = timerDataArr.concat(JSON.parse(localStorage.getItem('myResults') || '[]'));
-// console.log(timerDataArr)
+/********Getting data from Firebase***********/
+firebase.firestore().collection('timer-results').onSnapshot(results => {
+    results.docs.forEach(doc => {
+        renderTimerResults(doc)
+    });
+});
 
-if (timerDataArr) {
-    timerDataArr.forEach(result => renderTimerResults(result))
-};
-
-function renderTimerResults(result) {
+function renderTimerResults(results) {
     const resultNoteWrapper = document.createElement('div');
     resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
     resultsBoardArea.appendChild(resultNoteWrapper);
 
     const resultNameWrapper = document.createElement('div');
     resultNameWrapper.classList.add('show-result-name');
+    resultNameWrapper.setAttribute('data-id', results.id)
     resultNoteWrapper.appendChild(resultNameWrapper)
 
     const resultHeading = document.createElement('h2');
-    resultHeading.innerHTML = result.name;
+    resultHeading.innerHTML = results.data().name;
     resultNameWrapper.appendChild(resultHeading);
 
     const arrowElement = document.createElement('p');
@@ -61,10 +61,10 @@ function renderTimerResults(result) {
     ulElement.classList.add('show-result-body');
     resultNoteWrapper.appendChild(ulElement);
 
-    for (let i = 0;  i < result.time.length; i++) {
+    for (let i = 0;  i < results.data().time.length; i++) {
         const liItem = document.createElement('li');
         liItem.classList.add('result-item');
-        liItem.innerHTML = result.time[i];
+        liItem.innerHTML = results.data().time[i];
         ulElement.appendChild(liItem);
     }; 
 
@@ -73,6 +73,7 @@ function renderTimerResults(result) {
 
     renderAccordionFeature(lastHeading);
 };
+/*******************/
 
 function renderAccordionFeature(item) {
     item.addEventListener('click', () => {
@@ -88,6 +89,7 @@ function renderAccordionFeature(item) {
             }
     });
 };
+
 
 // Starting the timer
 function startTimer() {
