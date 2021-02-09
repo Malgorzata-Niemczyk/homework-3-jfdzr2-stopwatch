@@ -34,19 +34,28 @@ saveBtn.style.display = 'none';
 
 /********Getting data from Firebase***********/
 firebase.firestore().collection('timer-results').onSnapshot(results => {
-    results.docs.forEach(doc => {
-        renderTimerResults(doc)
-    });
+   let changes = results.docChanges();
+
+   changes.forEach(change => {
+       if (change.type === 'added') {
+           renderTimerResults(change.doc)
+       } else if (change.type === 'removed') {
+           let resultItem = resultsBoardArea.querySelector(`[data-id=${change.doc.id}]`);
+           resultsBoardArea.removeChild(resultItem);
+       }
+   })
 });
+
+const resultNoteWrapper = document.createElement('div');
 
 function renderTimerResults(results) {
     const resultNoteWrapper = document.createElement('div');
     resultNoteWrapper.classList.add('show-results-note', 'rounded-lg', 'shadow-2xl');
+    resultNoteWrapper.setAttribute('data-id', results.id)
     resultsBoardArea.appendChild(resultNoteWrapper);
 
     const resultNameWrapper = document.createElement('div');
     resultNameWrapper.classList.add('show-result-name');
-    resultNameWrapper.setAttribute('data-id', results.id)
     resultNoteWrapper.appendChild(resultNameWrapper)
 
     const resultHeading = document.createElement('h2');
