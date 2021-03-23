@@ -1,6 +1,6 @@
 # Praca domowa - 3
 
-[My StopWatch - With Added JS Functionality and Data Saved in localStorage](https://malgorzata-niemczyk.github.io/jfdzr2-homework-3/src/index.html)
+[My StopWatch - With Added JS Functionality and Data Saved in localStorage](https://malgorzata-niemczyk.github.io/homework-3-jfdzr2-stopwatch/src/index.html)
 
 This is a homework activity that I completed while learning a JavaScript module on a Front-end Developer course at InfoShareAcademy. The aim of the activity was to add the functionalities to a stopwatch app using JavaScript:
 
